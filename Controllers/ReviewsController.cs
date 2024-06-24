@@ -89,7 +89,7 @@ namespace MVCFilmLists.Controllers
             }
             ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Title", review.MovieId);
             //ViewData["ApplicationUserId"] = new SelectList(_context.User, "Id", "Id", review.ApplicationUserId);
-            return View(review);
+            return RedirectToAction("Details", "Movies", new { id = review.MovieId });
         }
 
         // GET: Reviews/Edit/5

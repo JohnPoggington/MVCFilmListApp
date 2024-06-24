@@ -63,7 +63,7 @@
                         @{
                             if((String)ViewData["UserId"] == review.ApplicationUserId)
                             {
-                                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id">Edytuj recenzję</a>
+                                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary">Edytuj recenzję</a>
                             }
                         }
                     </div>
