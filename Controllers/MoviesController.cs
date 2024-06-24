@@ -95,7 +95,13 @@ namespace MVCFilmLists.Controllers
             var movie = await _context.Movie
                 .Include(m => m.Director)
                 .Include(m => m.Genre)
+                .Include(m => m.reviews).ThenInclude(r => r.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
+            if (User.Identity.Name != null)
+            {
+                var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+                ViewData["UserId"] = user.Id;
+            }
             if (movie == null)
             {
                 return NotFound();

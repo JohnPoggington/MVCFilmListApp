@@ -47,6 +47,33 @@
             <a asp-controller="Directors" asp-action="Details" asp-route-id="@Model.Director.Id">@Html.DisplayFor(model => model.Director.FirstAndLastName)</a>
         </dd>
     </dl>
+    <div style="display: flex, flex-direction: column ">
+        <h4>Recenzje użytkowników</h4>
+        @{
+            if(Model.reviews.Count > 0)
+            {
+                @foreach (var review in Model.reviews)
+                {
+                    String[] split = review.User.Email.Split("@");
+                    string name = split[0];
+                    <div>
+                        <p>Recenzja od @name</p>
+                        <p>Ocena @review.Rating / 5</p>
+                        <p>@review.Content</p>
+                        @{
+                            if((String)ViewData["UserId"] == review.ApplicationUserId)
+                            {
+                                <a asp-controller="Reviews" asp-action="Edit" asp-route-id="@review.Id">Edytuj recenzję</a>
+                            }
+                        }
+                    </div>
+                }
+            }
+            else {<p>Ten film nie ma jeszcze recenzji!</p>}
+            
+        }
+        
+    </div>
    
 </div>
 <div>

@@ -7,5 +7,7 @@ namespace MVCFilmLists.Models
         public string Nickname { get; set; }
 
         public ICollection<MovieList> MovieLists { get; set; } = new List<MovieList>();
+
+        public ICollection<Review> Reviews { get; set; }
     }
 }

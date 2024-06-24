@@ -39,5 +39,6 @@ namespace MVCFilmLists.Data
             //    .HasKey(c => new { c.MovieListId, c.MovieId });
 
         }
+        public DbSet<MVCFilmLists.Models.Review> Review { get; set; } = default!;
     }
 }

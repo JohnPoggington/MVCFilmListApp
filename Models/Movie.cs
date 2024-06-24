@@ -28,6 +28,8 @@ namespace MVCFilmLists.Models
 
         public ICollection<MovieList> movieLists { get; set; }
 
+        public ICollection<Review> reviews { get; set; }
+
         //public List<ListEntry> Entries { get; } = [];
     }
 }
