@@ -28,6 +28,8 @@ namespace MVCFilmLists.Controllers
         {
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParam"] = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewData["RuntimeSortParam"] = sortOrder == "Runtime" ? "runtime_desc" : "Runtime";
+            ViewData["GenreSortParam"] = sortOrder == "Genre" ? "genre_desc" : "Genre";
             ViewData["CurrentSort"] = sortOrder;
 
             if (searchString != null)
@@ -60,6 +62,18 @@ namespace MVCFilmLists.Controllers
                     break;
                 case "date_desc":
                     applicationDbContext = applicationDbContext.OrderByDescending(s => s.ReleaseDate).Include(m => m.Director).Include(m => m.Genre);
+                    break;
+                case "Genre":
+                    applicationDbContext = applicationDbContext.OrderBy(s => s.Genre.Name).Include(m => m.Director).Include(m => m.Genre);
+                    break;
+                case "genre_desc":
+                    applicationDbContext = applicationDbContext.OrderByDescending(s => s.Genre.Name).Include(m => m.Director).Include(m => m.Genre);
+                    break;
+                case "Runtime":
+                    applicationDbContext = applicationDbContext.OrderBy(s => s.Runtime).Include(m => m.Director).Include(m => m.Genre);
+                    break;
+                case "runtime_desc":
+                    applicationDbContext = applicationDbContext.OrderByDescending(s => s.Runtime).Include(m => m.Director).Include(m => m.Genre);
                     break;
                 default:
                     applicationDbContext = applicationDbContext.OrderBy(s => s.Title).Include(m => m.Director).Include(m => m.Genre);

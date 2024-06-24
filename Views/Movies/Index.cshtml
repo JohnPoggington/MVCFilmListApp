@@ -28,13 +28,13 @@
                 Description
             </th>
             <th>
-                Runtime
+                 <a asp-action="Index" asp-route-sortOrder="@ViewData["RuntimeSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Runtime</a>
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Release Date</a>
             </th>
             <th>
-                Genre
+                 <a asp-action="Index" asp-route-sortOrder="@ViewData["GenreSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Genre</a>
             </th>
             <th>
                 Director
