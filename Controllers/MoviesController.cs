@@ -139,11 +139,19 @@ namespace MVCFilmLists.Controllers
             ModelState.Remove("Director");
             ModelState.Remove("Genre");
             ModelState.Remove("reviews");
+            ModelState.Remove("movieLists");
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                var message = string.Join(" | ", ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage));
+                await Console.Out.WriteLineAsync(message);
             }
             ViewData["DirectorId"] = new SelectList(_context.Director, "Id", "FirstAndLastName", movie.DirectorId);
             ViewData["GenreId"] = new SelectList(_context.Genre, "Id", "Name", movie.GenreId);
@@ -185,6 +193,7 @@ namespace MVCFilmLists.Controllers
             ModelState.Remove("Director");
             ModelState.Remove("Genre");
             ModelState.Remove("reviews");
+            ModelState.Remove("movieLists");
 
             if (ModelState.IsValid)
             {
