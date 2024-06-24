@@ -138,6 +138,7 @@ namespace MVCFilmLists.Controllers
         {
             ModelState.Remove("Director");
             ModelState.Remove("Genre");
+            ModelState.Remove("reviews");
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
@@ -183,6 +184,7 @@ namespace MVCFilmLists.Controllers
 
             ModelState.Remove("Director");
             ModelState.Remove("Genre");
+            ModelState.Remove("reviews");
 
             if (ModelState.IsValid)
             {
