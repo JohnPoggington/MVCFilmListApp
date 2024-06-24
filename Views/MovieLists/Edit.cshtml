@@ -1,0 +1,71 @@
+﻿@model MVCFilmLists.Models.ViewModels.ListViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>MovieList</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MovieList.Id" />
+            <input type="hidden" asp-for="MovieList.CreationDate" />
+            <div class="form-group">
+                <label asp-for="MovieList.Name" class="control-label"></label>
+                <input asp-for="MovieList.Name" class="form-control" />
+                <span asp-validation-for="MovieList.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieList.Description" class="control-label"></label>
+                <input asp-for="MovieList.Description" class="form-control" />
+                <span asp-validation-for="MovieList.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <h4>Dodaj filmy do listy</h4>
+                <div class="col-md-offset-2 col-md-10">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td>Title</td>
+                                <td>Director</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                    @foreach (var movie in Model.Movies)
+                    {
+                        <tr>
+                        <td><input type="checkbox" name="movieIds" value="@movie.Id"
+                                        @(Model.MovieList.Movies.Contains(movie) ? "checked" : "") />
+                                    </td>
+                                <td>@movie.Title</td>
+                                <td>@movie.Director.FirstAndLastName</td>
+                            
+                        </tr>
+                    }
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
