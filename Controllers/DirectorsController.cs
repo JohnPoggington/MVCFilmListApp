@@ -35,7 +35,7 @@ namespace MVCFilmLists.Controllers
             }
 
             var director = await _context.Director
-                .Include(d => d.Movies)
+                .Include(d => d.Movies).ThenInclude(m => m.Genre)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (director == null)
