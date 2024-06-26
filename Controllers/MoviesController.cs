@@ -9,6 +9,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MVCFilmLists.Data;
 using MVCFilmLists.Models;
+using MVCFilmLists.Models.ViewModels;
 
 namespace MVCFilmLists.Controllers
 {
@@ -92,6 +93,8 @@ namespace MVCFilmLists.Controllers
                 return NotFound();
             }
 
+            FilmReviewData model = new FilmReviewData();
+
             var movie = await _context.Movie
                 .Include(m => m.Director)
                 .Include(m => m.Genre)
@@ -118,7 +121,9 @@ namespace MVCFilmLists.Controllers
                 ViewData["UserLists"] = new SelectList(userLists, "Id", "Name");
             }
 
-            return View(movie);
+            model.Movie = movie;
+
+            return View(model);
         }
 
         // GET: Movies/Create

@@ -68,25 +68,34 @@ namespace MVCFilmLists.Controllers
         [Authorize]
         public async Task<IActionResult> Create([Bind("Id,Content,Rating,MovieId")] Review review)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
+            await Console.Out.WriteLineAsync("Called");
+            await Console.Out.WriteLineAsync(review.Content);
+            await Console.Out.WriteLineAsync(review.MovieId.ToString());
+            Console.ResetColor();
             ModelState.Remove("Movie");
             ModelState.Remove("User");
             ModelState.Remove("ApplicationUserId");
+            ModelState.Remove("Author");
+
             var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
             review.ApplicationUserId = user.Id;
-            if (ModelState.IsValid)
-            {
-
+            
+                Console.ForegroundColor = ConsoleColor.Red;
+                await Console.Out.WriteLineAsync("Added");
+                Console.ResetColor();
                 _context.Add(review);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                var message = string.Join(" | ", ModelState.Values
-                .SelectMany(v => v.Errors)
-                .Select(e => e.ErrorMessage));
-                await Console.Out.WriteLineAsync(message);
-            }
+                //return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Movies", new { id = review.MovieId });
+
+            //else
+            //{
+            //    var message = string.Join(" | ", ModelState.Values
+            //    .SelectMany(v => v.Errors)
+            //    .Select(e => e.ErrorMessage));
+            //    await Console.Out.WriteLineAsync(message);
+            //}
             ViewData["MovieId"] = new SelectList(_context.Movie, "Id", "Title", review.MovieId);
             //ViewData["ApplicationUserId"] = new SelectList(_context.User, "Id", "Id", review.ApplicationUserId);
             return RedirectToAction("Details", "Movies", new { id = review.MovieId });
